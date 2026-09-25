@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Schüler bearbeiten</title>
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>✏️ Schüler bearbeiten</h1>
+
+    <form method="POST">
+
+        <label>Vorname</label>
+        <input
+            type="text"
+            name="vorname"
+            value="{{ schueler[1] }}"
+            required>
+
+        <br><br>
+
+        <label>Nachname</label>
+        <input
+            type="text"
+            name="nachname"
+            value="{{ schueler[2] }}"
+            required>
+
+        <br><br>
+
+        <label>Geburtsdatum</label>
+        <input
+            type="date"
+            name="geburtsdatum"
+            value="{{ schueler[3] }}"
+            required>
+
+        <br><br>
+
+        <h2>5. Klasse</h2>
+
+        <label>Deutsch</label>
+        <input type="number" name="deutsch5" value="{{ noten[2] }}" min="1" max="6">
+
+        <label>Mathematik</label>
+        <input type="number" name="mathe5" value="{{ noten[3] }}" min="1" max="6">
+
+        <label>Englisch</label>
+        <input type="number" name="englisch5" value="{{ noten[4] }}" min="1" max="6">
+
+        <label>Naturwissenschaften</label>
+        <input type="number" name="nawi5" value="{{ noten[5] }}" min="1" max="6">
+
+        <label>Gesellschaftswissenschaften</label>
+        <input type="number" name="gewi5" value="{{ noten[6] }}" min="1" max="6">
+
+        <label>Kunst</label>
+        <input type="number" name="kunst5" value="{{ noten[7] }}" min="1" max="6">
+
+        <label>Musik</label>
+        <input type="number" name="musik5" value="{{ noten[8] }}" min="1" max="6">
+
+        <label>Sport</label>
+        <input type="number" name="sport5" value="{{ noten[9] }}" min="1" max="6">
+
+        <br><br>
+
+        <h2>6. Klasse</h2>
+
+        <label>Deutsch</label>
+        <input type="number" name="deutsch6" value="{{ noten[10] }}" min="1" max="6">
+
+        <label>Mathematik</label>
+        <input type="number" name="mathe6" value="{{ noten[11] }}" min="1" max="6">
+
+        <label>Englisch</label>
+        <input type="number" name="englisch6" value="{{ noten[12] }}" min="1" max="6">
+
+        <label>Naturwissenschaften</label>
+        <input type="number" name="nawi6" value="{{ noten[13] }}" min="1" max="6">
+
+        <label>Gesellschaftswissenschaften</label>
+        <input type="number" name="gewi6" value="{{ noten[14] }}" min="1" max="6">
+
+        <label>Kunst</label>
+        <input type="number" name="kunst6" value="{{ noten[15] }}" min="1" max="6">
+
+        <label>Musik</label>
+        <input type="number" name="musik6" value="{{ noten[16] }}" min="1" max="6">
+
+        <label>Sport</label>
+        <input type="number" name="sport6" value="{{ noten[17] }}" min="1" max="6">
+
+        <br><br>
+        ``
+        <hr>
+
+        <h2>Aktuelle Auswertung</h2>
+
+        <p>
+            📊 Durchschnitt:
+            <strong>{{ noten[18] }}</strong>
+        </p>
+
+        <p>
+            📚 Hauptfachsumme:
+            <strong>{{ noten[19] }}</strong>
+        </p>
+
+        <p>
+            {% if "Gymnasialempfehlung" in noten[20] %}
+                <span style="color:green;font-weight:bold;">
+                    ✅ {{ noten[20] }}
+                </span>
+            {% else %}
+                <span style="color:red;font-weight:bold;">
+                    ⚠️ {{ noten[20] }}
+                </span>
+            {% endif %}
+        </p>
+
+        <br>
+
+        <button type="submit">
+            💾 Änderungen speichern
+        </button>
+
+        <a href="/" class=a>
+            <button type="button">
+                ↩️ Zurück
+            </button>
+        </a>
+
+    </form>
+
+</div>
+
+</body>
+</html>

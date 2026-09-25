@@ -1,0 +1,111 @@
+.ergebnis-box{
+    margin-top:20px;
+    background:#e3f2fd;
+    padding:20px;
+    border-radius:10px;
+    border:2px solid #1976d2;
+}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f5f7fa;
+    padding:40px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+h1{
+    color:#1976d2;
+    margin-bottom:30px;
+}
+
+h2{
+    margin-bottom:20px;
+}
+
+label{
+    font-weight:bold;
+    margin-right:10px;
+}
+
+input{
+    padding:8px;
+    margin-right:10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+button{
+    padding:8px 15px;
+    background:#1976d2;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1259a7;
+}
+
+.ergebnis-box{
+    margin-top:20px;
+    background:#e3f2fd;
+    padding:20px;
+    border-radius:10px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+th, td{
+    border:1px solid #ccc;
+    padding:10px;
+    text-align:left;
+}
+
+th{
+    background:#1976d2;
+    color:white;
+}
+
+.aktionen{
+    margin-top:20px;
+    display:flex;
+    gap:15px;
+}
+
+.aktionen a{
+    text-decoration:none;
+}
+
+.aktionen button{
+    padding:10px 15px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    color:white;
+}
+
+.aktionen a:first-child button{
+    background:#ff9800;
+}
+
+.aktionen a:last-child button{
+    background:#e53935;
+}
