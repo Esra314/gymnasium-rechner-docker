@@ -1,25 +1,13 @@
 services:
-
-
   web:
-
-    image: gymnasium-rechner-berlin-main-web:latest
-    
-   
-
-
+    image: akesra/gymnasium-rechner-berlin:datenbanksicher
     ports:
-
       - target: 5000
         published: 5000
         protocol: tcp
         mode: ingress
-
-
     depends_on:
-
       - db
-
     deploy:
       replicas: 5
       update_config:
@@ -30,68 +18,40 @@ services:
       restart_policy:
         condition: on-failure
         delay: 5s
-        max_attempts: 3
-
+        max_attempts: 5
     environment:
-
       DB_HOST: db
-
+      DB_BACKUP_HOST: db_backup
       DB_PORT: "5432"
-
       DB_NAME: gymnasium
-
       DB_USER: postgres
-
       DB_PASSWORD_FILE: /run/secrets/DB_PASSWORD
-
     secrets:
       - DB_PASSWORD
-    
     networks:
       - gymnasium-over-net
 
-
   db:
-
     image: postgres:16
-
-  
-
     deploy:
       replicas: 1
-      
       restart_policy:
         condition: on-failure
         delay: 5s
         max_attempts: 5
-
       placement:
         constraints:
-          - node.labels.database == true
-
-    
-
-
-
-
+          - node.labels.db_role == primary
     networks:
       - gymnasium-over-net
-
-
     environment:
-
       POSTGRES_DB: gymnasium
-
       POSTGRES_USER: postgres
-
       POSTGRES_PASSWORD_FILE: /run/secrets/DB_PASSWORD
     secrets:
       - DB_PASSWORD
-
     volumes:
-
-      - postgres_data:/var/lib/postgresql/data
-    
+      - /opt/gymnasium_db:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d gymnasium"]
       interval: 10s
@@ -99,17 +59,40 @@ services:
       retries: 5
       start_period: 20s
 
-
-
-volumes:
-
-  postgres_data:
+  db_backup:
+    image: postgres:16
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+      placement:
+        constraints:
+          - node.labels.db_role == backup
+    networks:
+      - gymnasium-over-net
+    environment:
+      POSTGRES_DB: gymnasium
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD_FILE: /run/secrets/DB_PASSWORD
+    secrets:
+      - DB_PASSWORD
+    volumes:
+      - /opt/gymnasium_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d gymnasium"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
 
 networks:
   gymnasium-over-net:
     driver: overlay
+    driver_opts:
+      com.docker.network.driver.mtu: "1450"
 
 secrets:
   DB_PASSWORD:
     external: true
-      

@@ -2,3 +2,8 @@ __pycache__/
 *.pyc
 gymnasium.db
 .env
+*.dump
+*.sql
+.env
+backup/
+__pycache__/

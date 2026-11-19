@@ -1,167 +1,129 @@
 <!DOCTYPE html>
 <html lang="de">
-
-
 <head>
     <meta charset="UTF-8">
     <title>Gymnasium Rechner Berlin</title>
-
-<Link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-
 <body>
-
     <div class="container">
-
         <h1>🏫 Gymnasium Rechner Berlin</h1>
 
-    <form method="POST">
+        {% if db_status == "OFFLINE" %}
+        <div style="background-color: #f8d7da; color: #721c24; border: 2px solid #f5c6cb; padding: 12px; border-radius: 6px; margin-bottom: 20px; font-weight: bold;">
+            ⚠️ WARNUNG (Notbetrieb): Beide Datenbanken sind aktuell nicht erreichbar! Deine Berechnung funktioniert weiterhin, aber die Daten können gerade NICHT gespeichert werden.
+        </div>
+        {% elif db_status == "BACKUP" %}
+        <div style="background-color: #fff3cd; color: #856404; border: 2px solid #ffeeba; padding: 12px; border-radius: 6px; margin-bottom: 20px; font-weight: bold;">
+            🔄 FAILOVER AKTIV: Die Hauptdatenbank (Ubuntu 1) ist ausgefallen. Die Backup-Datenbank (Ubuntu 2) hat automatisch übernommen!
+        </div>
+        {% else %}
+        <div style="background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; padding: 8px 12px; border-radius: 6px; margin-bottom: 20px; font-size: 0.95em;">
+            ✅ Datenbank-Status: Hauptdatenbank (Ubuntu 1 - Aktiv) &amp; Backup-Synchronisation (Ubuntu 2 - Passiv) bereit.
+        </div>
+        {% endif %}
 
-    <h2>Schülerdaten</h2>
+        <form method="POST">
+            <h2>Schülerdaten</h2>
+            <label>Vorname</label>
+            <input type="text" name="vorname" required>
 
-    <label>Vorname</label>
-    <input type="text" name="vorname" required>
+            <label>Nachname</label>
+            <input type="text" name="nachname" required>
 
-    <label>Nachname</label>
-    <input type="text" name="nachname" required>
+            <label>Geburtsdatum</label>
+            <input type="date" name="geburtsdatum" required>
 
-    <label>Geburtsdatum</label>
-    <input
-        type="date"
-        name="geburtsdatum"
-        required>
+            <h2>5. Klasse (2. Halbjahr)</h2>
+            <label>Deutsch</label>
+            <input type="number" name="deutsch5" min="1" max="6" required>
 
-    <h2>5. Klasse (2. Halbjahr)</h2>
+            <label>Mathematik</label>
+            <input type="number" name="mathe5" min="1" max="6" required>
 
-    <label>Deutsch</label>
-    <input type="number" name="deutsch5" min="1" max="6" required>
+            <label>Englisch</label>
+            <input type="number" name="englisch5" min="1" max="6" required>
 
-    <label>Mathematik</label>
-    <input type="number" name="mathe5" min="1" max="6" required>
+            <label>Naturwissenschaften</label>
+            <input type="number" name="nawi5" min="1" max="6" required>
 
-    <label>Englisch</label>
-    <input type="number" name="englisch5" min="1" max="6" required>
+            <label>Gesellschaftswissenschaften</label>
+            <input type="number" name="gewi5" min="1" max="6" required>
 
-    <label>Naturwissenschaften</label>
-    <input type="number" name="nawi5" min="1" max="6" required>
+            <label>Kunst</label>
+            <input type="number" name="kunst5" min="1" max="6" required>
 
-    <label>Gesellschaftswissenschaften</label>
-    <input type="number" name="gewi5" min="1" max="6" required>
+            <label>Musik</label>
+            <input type="number" name="musik5" min="1" max="6" required>
 
-    <label>Kunst</label>
-    <input type="number" name="kunst5" min="1" max="6" required>
+            <label>Sport</label>
+            <input type="number" name="sport5" min="1" max="6" required>
 
-    <label>Musik</label>
-    <input type="number" name="musik5" min="1" max="6" required>
+            <h2>6. Klasse (1. Halbjahr)</h2>
+            <label>Deutsch</label>
+            <input type="number" name="deutsch6" min="1" max="6" required>
 
-    <label>Sport</label>
-    <input type="number" name="sport5" min="1" max="6" required>
+            <label>Mathematik</label>
+            <input type="number" name="mathe6" min="1" max="6" required>
 
-    <h2>6. Klasse (1. Halbjahr)</h2>
+            <label>Englisch</label>
+            <input type="number" name="englisch6" min="1" max="6" required>
 
-    <label>Deutsch</label>
-    <input type="number" name="deutsch6" min="1" max="6" required>
+            <label>Naturwissenschaften</label>
+            <input type="number" name="nawi6" min="1" max="6" required>
 
-    <label>Mathematik</label>
-    <input type="number" name="mathe6" min="1" max="6" required>
+            <label>Gesellschaftswissenschaften</label>
+            <input type="number" name="gewi6" min="1" max="6" required>
 
-    <label>Englisch</label>
-    <input type="number" name="englisch6" min="1" max="6" required>
+            <label>Kunst</label>
+            <input type="number" name="kunst6" min="1" max="6" required>
 
-    <label>Naturwissenschaften</label>
-    <input type="number" name="nawi6" min="1" max="6" required>
+            <label>Musik</label>
+            <input type="number" name="musik6" min="1" max="6" required>
 
-    <label>Gesellschaftswissenschaften</label>
-    <input type="number" name="gewi6" min="1" max="6" required>
+            <label>Sport</label>
+            <input type="number" name="sport6" min="1" max="6" required>
 
-    <label>Kunst</label>
-    <input type="number" name="kunst6" min="1" max="6" required>
+            <button type="submit">Durchschnitt berechnen</button>
+        </form>
 
-    <label>Musik</label>
-    <input type="number" name="musik6" min="1" max="6" required>
+        {% if empfehlung %}
+        <div class="ergebnis-box">
+            <h2>Ergebnis</h2>
+            <p>Durchschnitt: {{ durchschnitt }}</p>
+            <p>Hauptfachsumme: {{ hauptfachsumme }}</p>
+            <p>Empfehlung: {{ empfehlung }}</p>
+        </div>
+        {% endif %}
 
-    <label>Sport</label>
-    <input type="number" name="sport6" min="1" max="6" required>
+        {% if versuche %}
+        <h2>Alle Berechnungen dieses Schülers</h2>
+        {% if schueler_id %}
+        <div class="aktionen">
+            <a href="/bearbeiten/{{ schueler_id }}">
+                <button type="button">✏️ Schüler bearbeiten</button>
+            </a>
+            <a href="/loeschen/{{ schueler_id }}">
+                <button type="button" onclick="return confirm('Schüler wirklich löschen?')">🗑️ Schüler löschen</button>
+            </a>
+        </div>
+        {% endif %}
 
-    <button type="submit">
-        Durchschnitt berechnen
-    </button>
-
-    </form>
-
-
-    {% if empfehlung %}
-
-    <div class="ergebnis-box">
-
-    <h2>Ergebnis</h2>
-
-    <p>
-        Durchschnitt: {{ durchschnitt }}
-    </p>
-
-    <p>
-        Hauptfachsumme: {{ hauptfachsumme }}
-    </p>
-
-    <p>
-        Empfehlung: {{ empfehlung }}
-    </p>
-
-</div>
-
-{% endif %}
-
-
-
-{% if versuche %}
-
-<h2>Alle Berechnungen dieses Schülers</h2>
-{% if schueler_id %}
-
-<div class="aktionen">
-
-    <a href="/bearbeiten/{{ schueler_id }}">
-        <button type="button">
-            ✏️ Schüler bearbeiten
-        </button>
-    </a>
-
-    <a href="/loeschen/{{ schueler_id }}">
-        <button
-            type="button"
-            onclick="return confirm('Schüler wirklich löschen?')">
-            🗑️ Schüler löschen
-        </button>
-    </a>
-
-</div>
-
-{% endif %}
-
-
-<table>
-    <tr>
-        <th>Durchschnitt</th>
-        <th>Hauptfachsumme</th>
-        <th>Ergebnis</th>
-    </tr>
-
-    {% for v in versuche %}
-    <tr>
-        <td>{{ v[0] }}</td>
-        <td>{{ v[1] }}</td>
-        <td>{{ v[2] }}</td>
-    </tr>
-    {% endfor %}
-
-</table>
-
-{% endif %}
-
-
+        <table>
+            <tr>
+                <th>Durchschnitt</th>
+                <th>Hauptfachsumme</th>
+                <th>Ergebnis</th>
+            </tr>
+            {% for v in versuche %}
+            <tr>
+                <td>{{ v[0] }}</td>
+                <td>{{ v[1] }}</td>
+                <td>{{ v[2] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
     </div>
-
 </body>
 </html>
