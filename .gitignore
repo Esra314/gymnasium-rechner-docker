@@ -7,3 +7,4 @@ gymnasium.db
 .env
 backup/
 __pycache__/
+DB_PASSWORD*.txt

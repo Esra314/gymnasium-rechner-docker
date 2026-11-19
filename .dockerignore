@@ -6,4 +6,4 @@ __pycache__
 
 .git
 
-.gitignore
+.gitignoreDB_PASSWORD*.txt

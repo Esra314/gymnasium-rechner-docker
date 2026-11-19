@@ -1,6 +1,6 @@
 services:
   web:
-    image: akesra/gymnasium-rechner-berlin:datenbanksicher
+    image: akesra/gymnasium-rechner-berlin:1.1
     ports:
       - target: 5000
         published: 5000
